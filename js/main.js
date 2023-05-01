@@ -1,13 +1,12 @@
- AOS.init({
- 	duration: 800,
- 	easing: 'slide'
- });
+AOS.init({
+  duration: 800,
+  easing: 'slide'
+});
 
 (function($) {
+  "use strict";
 
-	"use strict";
-
-	$(window).stellar({
+  $(window).stellar({
     responsive: true,
     parallaxBackgrounds: true,
     parallaxElements: true,
@@ -16,69 +15,51 @@
     scrollProperty: 'scroll'
   });
 
+  var fullHeight = function() {
+    $('.js-fullheight').css('height', $(window).height());
+    $(window).resize(function(){
+      $('.js-fullheight').css('height', $(window).height());
+    });
+  };
+  fullHeight();
 
-	var fullHeight = function() {
+  // loader
+  var loader = function() {
+    setTimeout(function() { 
+      if($('#ftco-loader').length > 0) {
+        $('#ftco-loader').removeClass('show');
+      }
+    }, 1);
+  };
+  loader();
 
-		$('.js-fullheight').css('height', $(window).height());
-		$(window).resize(function(){
-			$('.js-fullheight').css('height', $(window).height());
-		});
+  // Scrollax
+  $.Scrollax();
 
-	};
-	fullHeight();
+  // Burger Menu
+  var burgerMenu = function() {
+    $('body').on('click', '.js-fh5co-nav-toggle', function(event){
+      event.preventDefault();
+      if ( $('#ftco-nav').is(':visible') ) {
+        $(this).removeClass('active');
+      } else {
+        $(this).addClass('active');  
+      }
+    });
+  };
+  burgerMenu();
 
-	// loader
-	var loader = function() {
-		setTimeout(function() { 
-			if($('#ftco-loader').length > 0) {
-				$('#ftco-loader').removeClass('show');
-			}
-		}, 1);
-	};
-	loader();
-
-	// Scrollax
-   $.Scrollax();
-
-
-
-   // Burger Menu
-	var burgerMenu = function() {
-
-		$('body').on('click', '.js-fh5co-nav-toggle', function(event){
-
-			event.preventDefault();
-
-			if ( $('#ftco-nav').is(':visible') ) {
-				$(this).removeClass('active');
-			} else {
-				$(this).addClass('active');	
-			}
-
-			
-			
-		});
-
-	};
-	burgerMenu();
-
-
-	var onePageClick = function() {
-
-
-		$(document).on('click', '#ftco-nav a[href^="#"]', function (event) {
-	    event.preventDefault();
-
-	    var href = $.attr(this, 'href');
-
-	    $('html, body').animate({
-	        scrollTop: $($.attr(this, 'href')).offset().top - 70
-	    }, 500, function() {
-	    	// window.location.hash = href;
-	    });
-		});
-
-	};
+  var onePageClick = function() {
+    $(document).on('click', '#ftco-nav a[href^="#"]', function (event) {
+      event.preventDefault();
+      var href = $.attr(this, 'href');
+      $('html, body').animate({
+        scrollTop: $($.attr(this, 'href')).offset().top - 70
+      }, 500, function() {
+        // window.location.hash = href;
+      });
+    });
+  };
 
 	onePageClick();
 	
